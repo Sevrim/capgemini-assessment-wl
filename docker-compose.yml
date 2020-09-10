@@ -1,0 +1,29 @@
+version: '3.7'
+services: 
+  mysqltest:
+    image: mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_DATABASE=db_example
+      - MYSQL_ROOT_PASSWORD=root
+  
+  capgemini:
+    image: aw/capgemini-branch:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    environment:
+      - MYSQL_HOST=mysqltest
+      - MYSQL_USER=root
+    links:
+      - mysqltest  
+    depends_on:
+      - mysqltest
+       
+      
+
